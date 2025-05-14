@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Portfolio</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="light-theme">
+    <header>
+        <div class="container">
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
+                <span class="theme-label">Dark Mode</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="profile-image">
+                        <img id="profile-pic" src="images/passport_picture.jpg" alt="Profile Picture">
+                    </div>
+                    <div class="hero-text">
+                        <h1 id="full-name">Loading...</h1>
+                        <h2 id="profession">Loading...</h2>
+                        <p id="short-bio">Loading...</p>
+                        <div class="cta-buttons">
+                            <a href="#contact" class="btn primary-btn">Contact Me</a>
+                            <a href="#projects" class="btn secondary-btn">View Projects</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <p id="about-text">Loading...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills">
+            <div class="container">
+                <h2 class="section-title">My Skills</h2>
+                <div id="skills-container" class="skills-grid">
+                    <!-- Skills will be loaded dynamically -->
+                    <div class="skill-loader">Loading skills...</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2 class="section-title">My Projects</h2>
+                <div id="projects-container" class="projects-grid">
+                    <!-- Projects will be loaded dynamically -->
+                    <div class="project-loader">Loading projects...</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title">Contact Me</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span id="email">Loading...</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span id="phone">Loading...</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="location">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" id="linkedin" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" id="github" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="#" id="twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> <span id="footer-name">Dynamic Portfolio</span>. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+    <script src="js/portfolio.js"></script>
+</body>
+</html>
