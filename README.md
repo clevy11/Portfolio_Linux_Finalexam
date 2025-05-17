@@ -46,3 +46,27 @@ The database consists of the following tables:
 
 ## Usage
 Simply open the index.html file in a browser. The JavaScript will handle the database setup and data retrieval automatically.
+
+
+
+server {
+    listen 80;
+    server_name portfolio.auca.ac.rw;
+
+    location / {
+        proxy_pass http://localhost:PORT; # Replace PORT with the port Node.js runs on
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+
+
+sudo ln -s /etc/nginx/sites-available/portfolio.auca.ac.rw /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+
+
