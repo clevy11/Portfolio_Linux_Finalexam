@@ -104,11 +104,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Create tags HTML
                 const tagsHTML = project.tags && Array.isArray(project.tags) ? project.tags.map(tag => 
-                    `<span class="project-tag"></span>`
+                    `<span class="project-tag">${tag}</span>`
                 ).join('') : '';
                 
                 projectCard.innerHTML = `
-                    <img src="${project.image || 'images/default-project.jpg'}" onerror="this.src=''" alt="${project.title}" class="project-image">
+                    <img src="${project.image || 'images/default-project.jpg'}" onerror="this.src='images/default-project.jpg'" alt="${project.title}" class="project-image">
                     <div class="project-info">
                         <h3 class="project-title">${project.title}</h3>
                         <p class="project-description">${project.description}</p>

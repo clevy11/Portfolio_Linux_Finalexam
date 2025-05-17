@@ -4,14 +4,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Function to fetch data from the server
     async function fetchData(endpoint) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+    
         try {
             console.log(`Fetching data from ${endpoint}...`);
             const response = await fetch(`${apiBaseUrl}/${endpoint}`, {
+                signal: controller.signal,
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 }
             });
+            clearTimeout(timeoutId);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -21,11 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             return data;
         } catch (error) {
+            clearTimeout(timeoutId);
             console.error('Error fetching data:', error);
-            // Display error message to user
             const errorContainer = document.getElementById('error-container');
             if (errorContainer) {
-                errorContainer.textContent = 'Failed to load data. Please try again later.';
+                errorContainer.textContent = error.name === 'AbortError' ? 'Request timed out' : 'Failed to load data. Please try again later.';
                 errorContainer.style.display = 'block';
             }
             return null;
@@ -104,11 +109,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Create tags HTML
                 const tagsHTML = project.tags && Array.isArray(project.tags) ? project.tags.map(tag => 
-                    `<span class="project-tag"></span>`
+                    `<span class="project-tag">${tag}</span>`
                 ).join('') : '';
                 
                 projectCard.innerHTML = `
-                    <img src="${project.image || 'images/default-project.jpg'}" onerror="this.src=''" alt="${project.title}" class="project-image">
+                    <img src="${project.image || 'images/default-project.jpg'}" onerror="this.src='images/default-project.jpg'" alt="${project.title}" class="project-image">
                     <div class="project-info">
                         <h3 class="project-title">${project.title}</h3>
                         <p class="project-description">${project.description}</p>

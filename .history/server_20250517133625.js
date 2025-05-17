@@ -78,7 +78,17 @@ app.get('/api/skills', async (req, res) => {
 app.get('/api/projects', async (req, res) => {
  try {
  const result = await pool.query(`
- SELECT * from projects;
+ SELECT 
+ p.id,
+ p.title,
+ p.description,
+ p.image,
+ p.link,
+ array_agg(pt.tag_name) AS tags
+ FROM projects p
+ JOIN project_tags pt ON p.id = pt.project_id
+ GROUP BY p.id, p.title, p.description, p.image, p.link
+ ORDER BY p.id;
  `);
  res.json(result.rows);
  } catch (error) {
@@ -150,7 +160,7 @@ app.get('/api/initialize', async (req, res) => {
 
  INSERT INTO projects (title, description, image, link)
  VALUES ('Project 1', 'First project description', 'images/project1.jpg', 'https://project1.com'),
- ('Project 2', 'Second project description', 'images/project1.jpg', 'https://project2.com');
+ ('Project 2', 'Second project description', 'images/project2.jpg', 'https://project2.com');
 
  INSERT INTO project_tags (project_id, tag_name)
  VALUES (1, 'JavaScript'), (1, 'React'),

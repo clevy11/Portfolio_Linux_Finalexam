@@ -69,22 +69,60 @@ BEGIN
     END IF;
 END $$;
 
--- Example JOIN queries for data retrieval
--- Get all projects with their tags
-SELECT p.*, pt.tag_name
-FROM projects p
-LEFT JOIN project_tags pt ON p.id = pt.project_id;
+-- Create profile table
+CREATE TABLE profile (
+    id SERIAL PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    profession VARCHAR(100) NOT NULL,
+    short_bio TEXT NOT NULL,
+    about TEXT NOT NULL,
+    profile_pic VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    location VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
--- Get all skills with their associated profile
-SELECT s.*, p.full_name
-FROM skills s
-LEFT JOIN profile p ON s.id = p.id;
+-- Create social links table
+CREATE TABLE social_links (
+    id SERIAL PRIMARY KEY,
+    profile_id INTEGER REFERENCES profile(id) ON DELETE CASCADE,
+    platform VARCHAR(50) NOT NULL,
+    url VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
--- Get all social links with profile information
-SELECT sl.*, p.full_name, p.profession
-FROM social_links sl
-LEFT JOIN profile p ON sl.profile_id = p.id;
+-- Create skills table
+CREATE TABLE skills (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    level INTEGER NOT NULL CHECK (level >= 0 AND level <= 100),
+    icon VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
+-- Create projects table
+CREATE TABLE projects (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    image VARCHAR(255) NOT NULL,
+    link VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create project tags table (for many-to-many relationship)
+CREATE TABLE project_tags (
+    id SERIAL PRIMARY KEY,
+    project_id INTEGER REFERENCES projects(id) ON DELETE CASCADE,
+    tag_name VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 -- Insert demo data only if tables are empty
 DO $$
@@ -112,20 +150,4 @@ BEGIN
             ('Task Management App', 'Collaborative task management solution', 'project3.jpg', 'https://tasks.example.com');
     END IF;
 END $$;
-
--- Example JOIN queries for data retrieval
--- Get all projects with their tags
-SELECT p.*, pt.tag_name
-FROM projects p
-LEFT JOIN project_tags pt ON p.id = pt.project_id;
-
--- Get all skills with their associated profile
-SELECT s.*, p.full_name
-FROM skills s
-LEFT JOIN profile p ON s.id = p.id;
-
--- Get all social links with profile information
-SELECT sl.*, p.full_name, p.profession
-FROM social_links sl
-LEFT JOIN profile p ON sl.profile_id = p.id;
 

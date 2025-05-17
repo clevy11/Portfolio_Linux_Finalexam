@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Create tags HTML
                 const tagsHTML = project.tags && Array.isArray(project.tags) ? project.tags.map(tag => 
-                    `<span class="project-tag"></span>`
+                    `<span class="project-tag">${tag}</span>`
                 ).join('') : '';
                 
                 projectCard.innerHTML = `

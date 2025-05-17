@@ -136,7 +136,7 @@ app.get('/api/initialize', async (req, res) => {
  // Insert demo data
  await pool.query(`
  INSERT INTO profile (full_name, profession, short_bio, about, profile_pic, email, phone, location)
- VALUES ('John Doe', 'Software Engineer', 'Experienced full-stack developer', 'Detailed bio information', 'images/profile.jpg', 'john.doe@example.com', '+1234567890', 'New York, USA');
+ VALUES ('John Doe', 'Software Engineer', 'Experienced full-stack developer', 'Detailed bio information', 'images/passport_picture.jpg', 'john.doe@example.com', '+1234567890', 'New York, USA');
 
  INSERT INTO social_links (profile_id, platform, url)
  VALUES (1, 'linkedin', 'https://linkedin.com/in/johndoe'),
@@ -149,8 +149,8 @@ app.get('/api/initialize', async (req, res) => {
  ('Node.js', 80, 'fab fa-node');
 
  INSERT INTO projects (title, description, image, link)
- VALUES ('Project 1', 'First project description', 'images/project1.jpg', 'https://project1.com'),
- ('Project 2', 'Second project description', 'images/project1.jpg', 'https://project2.com');
+ VALUES ('Project 1', 'First project description', 'images/default-project.jpg', 'https://project1.com'),
+ ('Project 2', 'Second project description', 'images/default-project.jpg', 'https://project2.com');
 
  INSERT INTO project_tags (project_id, tag_name)
  VALUES (1, 'JavaScript'), (1, 'React'),

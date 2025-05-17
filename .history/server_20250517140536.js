@@ -150,7 +150,7 @@ app.get('/api/initialize', async (req, res) => {
 
  INSERT INTO projects (title, description, image, link)
  VALUES ('Project 1', 'First project description', 'images/project1.jpg', 'https://project1.com'),
- ('Project 2', 'Second project description', 'images/project1.jpg', 'https://project2.com');
+ ('Project 2', 'Second project description', 'images/project2.jpg', 'https://project2.com');
 
  INSERT INTO project_tags (project_id, tag_name)
  VALUES (1, 'JavaScript'), (1, 'React'),

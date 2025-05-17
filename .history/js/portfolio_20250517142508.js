@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('short-bio').textContent = profile.short_bio;
             document.getElementById('about-text').textContent = profile.about;
             document.getElementById('profile-pic').src = profile.profile_pic || 'images/passport_picture.jpg';
+        document.getElementById('profile-pic').onerror = function() {
+            this.src = 'images/passport_picture.jpg';
+        };
             document.getElementById('profile-pic').onerror = function() {
                 this.src = 'images/passport_picture.jpg';
             };
@@ -108,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 ).join('') : '';
                 
                 projectCard.innerHTML = `
-                    <img src="${project.image || 'images/default-project.jpg'}" onerror="this.src=''" alt="${project.title}" class="project-image">
+                    <img src="${project.image || 'images/default-project.jpg'}" onerror="this.src='images/default-project.jpg'" alt="${project.title}" class="project-image">
                     <div class="project-info">
                         <h3 class="project-title">${project.title}</h3>
                         <p class="project-description">${project.description}</p>

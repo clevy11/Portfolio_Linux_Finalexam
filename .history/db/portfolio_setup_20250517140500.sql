@@ -71,19 +71,7 @@ END $$;
 
 -- Example JOIN queries for data retrieval
 -- Get all projects with their tags
-SELECT p.*, pt.tag_name
-FROM projects p
-LEFT JOIN project_tags pt ON p.id = pt.project_id;
 
--- Get all skills with their associated profile
-SELECT s.*, p.full_name
-FROM skills s
-LEFT JOIN profile p ON s.id = p.id;
-
--- Get all social links with profile information
-SELECT sl.*, p.full_name, p.profession
-FROM social_links sl
-LEFT JOIN profile p ON sl.profile_id = p.id;
 
 
 -- Insert demo data only if tables are empty

@@ -6,12 +6,16 @@ document.addEventListener('DOMContentLoaded', function() {
     async function fetchData(endpoint) {
         try {
             console.log(`Fetching data from ${endpoint}...`);
-            const response = await fetch(`${apiBaseUrl}/${endpoint}`, {
+            const controller = new AbortController();
+const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+const response = await fetch(`${apiBaseUrl}/${endpoint}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
-                }
-            });
+                },
+                signal: controller.signal
+            }).finally(() => clearTimeout(timeoutId));
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -104,11 +108,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Create tags HTML
                 const tagsHTML = project.tags && Array.isArray(project.tags) ? project.tags.map(tag => 
-                    `<span class="project-tag"></span>`
+                    `<span class="project-tag">${tag}</span>`
                 ).join('') : '';
                 
                 projectCard.innerHTML = `
-                    <img src="${project.image || 'images/default-project.jpg'}" onerror="this.src=''" alt="${project.title}" class="project-image">
+                    <img src="${project.image || 'images/default-project.jpg'}" onerror="this.src='images/default-project.jpg'" alt="${project.title}" class="project-image">
                     <div class="project-info">
                         <h3 class="project-title">${project.title}</h3>
                         <p class="project-description">${project.description}</p>
