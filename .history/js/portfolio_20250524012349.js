@@ -132,4 +132,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Start loading data
     initPortfolio();
-});
+}));}

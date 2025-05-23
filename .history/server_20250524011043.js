@@ -12,9 +12,9 @@ app.use(express.static(path.join(__dirname, './')));
 const dbConfig = {
   user: 'postgres',
   password: '728728',
-  host: 'localhost',
-  port: 5433,
-  database: 'portfolios'
+  host: 'db',
+  port: 5432,
+  database: 'portfolio'
 };
 
 const pool = new Pool(dbConfig);
@@ -152,37 +152,21 @@ app.get('/api/initialize', async (req, res) => {
     // Insert demo data
     await pool.query(`
       INSERT INTO profile (full_name, profession, short_bio, about, profile_pic, email, phone, location)
-      VALUES (
-        'John Doe',
-        'Full Stack Developer',
-        'Passionate about creating elegant solutions to complex problems',
-        'I am a full stack developer with 5 years of experience in web development...',
-        '/images/profile.jpg',
-        'john@example.com',
-        '+1234567890',
-        'New York, USA'
-      ) ON CONFLICT DO NOTHING;
+      VALUES ('Buntu Levy Caleb', 'Software Engineer', 'Experienced full-stack developer', 'Detailed bio information', 'images/profile.jpg', 'john.doe@example.com', '+1234567890', 'New York, USA');
 
       INSERT INTO social_links (profile_id, platform, url)
-      VALUES 
-        (1, 'linkedin', 'https://linkedin.com/in/johndoe'),
-        (1, 'github', 'https://github.com/johndoe'),
-        (1, 'twitter', 'https://twitter.com/johndoe')
-      ON CONFLICT DO NOTHING;
+      VALUES (1, 'linkedin', 'https://linkedin.com/in/johndoe'),
+             (1, 'github', 'https://github.com/johndoe'),
+             (1, 'twitter', 'https://twitter.com/johndoe');
 
       INSERT INTO skills (name, level, icon)
-      VALUES 
-        ('JavaScript', 90, 'fab fa-js'),
-        ('Python', 85, 'fab fa-python'),
-        ('React', 88, 'fab fa-react'),
-        ('Node.js', 87, 'fab fa-node')
-      ON CONFLICT DO NOTHING;
+      VALUES ('JavaScript', 90, 'fab fa-js-square'),
+             ('React', 85, 'fab fa-react'),
+             ('Node.js', 80, 'fab fa-node');
 
       INSERT INTO projects (title, description, image, link)
-      VALUES 
-        ('Project 1', 'A full stack web application', '/images/project1.jpg', 'https://project1.com'),
-        ('Project 2', 'Mobile app development', '/images/default-project.jpg', 'https://project2.com')
-      ON CONFLICT DO NOTHING;
+      VALUES ('Portfolio Website', 'A personal portfolio website', 'images/project1.jpg', 'https://example.com/project1'),
+             ('E-commerce Platform', 'An online shopping platform', 'images/default-project.jpg', 'https://example.com/project2');
     `);
 
     res.json({ message: 'Database initialized successfully' });
@@ -192,12 +176,12 @@ app.get('/api/initialize', async (req, res) => {
   }
 });
 
-// Start server and initialize database
+// Start server and connect to database
 app.listen(3030, async () => {
   console.log('Server running on port 3030');
   const connected = await connectWithRetry();
   if (!connected) {
-    console.error('Failed to connect to database after all retries');
+    console.error('Failed to connect to database after multiple retries');
     process.exit(1);
   }
 });

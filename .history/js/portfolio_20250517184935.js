@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Database connection configuration
-    const apiBaseUrl = 'http://localhost:3030/api';
+    const apiBaseUrl = 'http://localhost:3000/api';
     
     // Function to fetch data from the server
     async function fetchData(endpoint) {

@@ -13,7 +13,7 @@ const dbConfig = {
   user: 'postgres',
   password: '728728',
   host: 'localhost',
-  port: 5433,
+  port: 5432,
   database: 'portfolios'
 };
 
